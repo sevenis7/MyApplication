@@ -1,0 +1,24 @@
+﻿@page "/requests"
+
+<h3>Requests</h3>
+
+@foreach(var e in ListRequests)
+{
+   @e.Text;
+}
+
+@code {
+
+    [Inject]
+    private IRequestService RequestService { get; set; } = null!;
+
+    public IEnumerable<RequestModel> ListRequests { get; private set; } = Enumerable.Empty<RequestModel>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        ListRequests = await RequestService.GetAll();
+    }
+}
