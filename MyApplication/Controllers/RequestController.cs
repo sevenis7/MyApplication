@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyApplicationDataLayer.Entities;
 using MyApplicationServiceLayer.RequestService;
@@ -54,6 +53,7 @@ namespace MyApplication.Controllers
         /// <response code = "403">If not authorized</response>
         /// <response code = "500">Internal Server Error</response>
         [HttpGet("{id:int}")]
+        //[Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(RequestModel))]
         [ProducesResponseType(401)]
         [ProducesResponseType(403)]
@@ -79,8 +79,8 @@ namespace MyApplication.Controllers
         [HttpPost]
         //[Authorize(Roles = "user")]
         [ProducesResponseType(201, Type = typeof(Request))]
-        [ProducesResponseType(401)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [ProducesResponseType(500)]
         public async Task<ActionResult<Request>> Post([FromBody] PostRequestModel model)
         {
@@ -101,12 +101,17 @@ namespace MyApplication.Controllers
         /// <param name="status"></param>
         /// <returns>Patched request</returns>
         /// <response code = "200">Returns patched request</response>
-        /// <response code = "404">If id is null</response>
+        /// <response code = "400">If request with this id is not exists</response>
+        /// <response code = "401">If not authorized</response>
+        /// <response code = "403">If not authorized</response>
         /// <response code = "500">Internal Server Error</response>
         [HttpPatch("{id}/{status}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Request))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[Authorize(Roles = "admin")]
+        [ProducesResponseType(200, Type = typeof(Request))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<Request>> EditStatus(int id, RequestStatus status)
         {
             var result = await _requestService.EditStatus(id, status);
@@ -120,10 +125,15 @@ namespace MyApplication.Controllers
         /// <param name="status"></param>
         /// <returns>Collection of RequestModel</returns>
         /// <response code = "200">Returns the collection of RequestModels</response>
+        /// <response code = "401">If not authorized</response>
+        /// <response code = "403">If not authorized</response>
         /// <response code = "500">Internal Server Error</response>
         [HttpGet("{status}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<RequestModel>))]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[Authorize(Roles = "admin")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<RequestModel>))]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<IEnumerable<RequestModel>?>> GetByStatus(RequestStatus status)
         {
             var requestsQry = await _requestService.GetByStatus(status);
