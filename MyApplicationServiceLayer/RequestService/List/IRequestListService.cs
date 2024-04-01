@@ -6,5 +6,6 @@ namespace MyApplicationServiceLayer.RequestService.List
     {
         Task<IQueryable<Request>?> GetAll();
         Task<IQueryable<Request>?> GetByStatus(RequestStatus status);
+        Task<Request?> Get(int id);
     }
 }

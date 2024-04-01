@@ -32,6 +32,11 @@ namespace MyApplicationServiceLayer.RequestService
             return await _postRequestService.Post(model, userId);
         }
 
+        public async Task<Request?> Get(int id)
+        {
+            return await _requestListService.Get(id);
+        }
+
         public async Task<IQueryable<Request>?> GetAll()
         {
             return await _requestListService.GetAll();

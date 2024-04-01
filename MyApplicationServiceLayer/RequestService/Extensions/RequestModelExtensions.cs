@@ -17,5 +17,18 @@ namespace MyApplicationServiceLayer.RequestService.Extensions
                 Status = r.Status.ToString()
             });
         }
+
+        public static RequestModel ToModel(this Request source)
+        {
+            return new RequestModel
+            {
+                Id = source.Id,
+                Date = source.Date.ToShortDateString(),
+                Email = source.User.Email,
+                Text = source.Text,
+                UserName = source.User.FullName,
+                Status = source.Status.ToString()
+            };
+        }
     }
 }

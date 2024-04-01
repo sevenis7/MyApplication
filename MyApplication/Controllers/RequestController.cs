@@ -30,11 +30,11 @@ namespace MyApplication.Controllers
         /// <response code = "403">If not authorized</response>
         /// <response code = "500">Internal Server Error</response>
         [HttpGet]
-        [Authorize(Roles = "admin")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<RequestModel>))]
+        //[Authorize(Roles = "admin")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<RequestModel>))]
         [ProducesResponseType(401)]
         [ProducesResponseType(403)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(500)]
         public async Task<ActionResult<IEnumerable<RequestModel>?>> GetAll()
         {
             var requestsQry = await _requestService.GetAll();
@@ -42,6 +42,29 @@ namespace MyApplication.Controllers
             var requests = await requestsQry.ToModel().ToListAsync();
 
             return Ok(requests);
+        }
+
+        /// <summary>
+        /// Get a RequestModel with selected id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>RequestModel</returns>
+        /// <response code = "200">Returns the RequestModels</response>
+        /// <response code = "401">If not authorized</response>
+        /// <response code = "403">If not authorized</response>
+        /// <response code = "500">Internal Server Error</response>
+        [HttpGet("{id:int}")]
+        [ProducesResponseType(200, Type = typeof(RequestModel))]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult<RequestModel?>> Get(int id)
+        {
+            var request =  await _requestService.Get(id);
+
+            var requestModel = request?.ToModel();
+
+            return requestModel == null ? BadRequest() : Ok(requestModel);
         }
 
         /// <summary>
@@ -54,7 +77,7 @@ namespace MyApplication.Controllers
         /// <response code = "401">If not authorized</response>
         /// <response code = "500">Internal Server Error</response>
         [HttpPost]
-        [Authorize(Roles = "user")]
+        //[Authorize(Roles = "user")]
         [ProducesResponseType(201, Type = typeof(Request))]
         [ProducesResponseType(401)]
         [ProducesResponseType(400)]
@@ -80,7 +103,7 @@ namespace MyApplication.Controllers
         /// <response code = "200">Returns patched request</response>
         /// <response code = "404">If id is null</response>
         /// <response code = "500">Internal Server Error</response>
-        [HttpPatch("{id:int}/{status:length(1,20)}")]
+        [HttpPatch("{id}/{status}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Request))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -98,7 +121,7 @@ namespace MyApplication.Controllers
         /// <returns>Collection of RequestModel</returns>
         /// <response code = "200">Returns the collection of RequestModels</response>
         /// <response code = "500">Internal Server Error</response>
-        [HttpGet("{status:length(1,20)}")]
+        [HttpGet("{status}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<RequestModel>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<RequestModel>?>> GetByStatus(RequestStatus status)

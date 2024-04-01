@@ -16,7 +16,7 @@ namespace MyApplicationClient
             builder.Services.AddHttpClient("ServerApi")
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.Configuration["ServerUrl"] ?? ""));
 
-           builder.Services.AddScoped<IRequestService, RequestService>();
+            builder.Services.AddScoped<IRequestService, RequestService>();
 
 
             await builder.Build().RunAsync();

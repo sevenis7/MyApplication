@@ -9,5 +9,6 @@ namespace MyApplicationServiceLayer.RequestService
         Task<IQueryable<Request>?> GetAll();
         Task<IQueryable<Request>?> GetByStatus(RequestStatus status);
         Task<Request?> Post(PostRequestModel model, int userId);
+        Task<Request?> Get(int id);
     }
 }

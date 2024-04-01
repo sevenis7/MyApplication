@@ -22,5 +22,10 @@ namespace MyApplicationServiceLayer.RequestService.List
         {
             return _context.Requests.Where(r => r.Status == status);
         }
+
+        public async Task<Request?> Get(int id)
+        {
+            return await _context.Requests.Include(r => r.User).FirstOrDefaultAsync(r => r.Id == id);
+        }
     }
 }
