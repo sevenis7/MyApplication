@@ -25,7 +25,7 @@ namespace MyApplicationClient.Services
 
         public async Task Login(LoginModel model)
         {
-            var response = await _httpClient.PostAsync("account/login", JsonContent.Create(model));
+            var response = await _httpClient.PostAsync("api/account/login", JsonContent.Create(model));
 
             if (!response.IsSuccessStatusCode)
                 throw new UnauthorizedAccessException("Login failed.");
