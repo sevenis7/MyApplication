@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MyApplicationClient.Services;
@@ -12,9 +13,11 @@ namespace MyApplicationClient
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-
             builder.Services.AddHttpClient("ServerApi")
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.Configuration["ServerUrl"] ?? ""));
+
+            builder.Services.AddSingleton<IAccountService, AccountService>();
+            builder.Services.AddBlazoredLocalStorageAsSingleton();
 
             builder.Services.AddScoped<IRequestService, RequestService>();
 
