@@ -1,26 +1,31 @@
 ﻿@page "/login"
 @using MyApplicationServiceLayer.Authenticate.Login.Models;
 @inject IAccountService AccountService;
+@inject NavigationManager NavManager;
 
-<fieldset disabled="@(userName is not null)">
-    <EditForm Model="@model" OnValidSubmit="Submit">
-        <div>
-            <label>Username:</label>
-            <InputText @bind-Value="@model.UserName" requried/>
-        </div>
-        <div>
-            <label>Password:</label>
-            <InputText type="password" @bind-Value="@model.Password" required></InputText>
-        </div>
-        <div>
-            <button type="submit">Login</button>
-        </div>
-    </EditForm>
-</fieldset>
+<EditForm Model="@model" OnValidSubmit="Submit">
+    <div>
+        <label>Username:</label>
+        <InputText @bind-Value="@model.UserName" requried/>
+    </div>
+    <div>
+        <label>Password:</label>
+        <InputText type="password" @bind-Value="@model.Password" required></InputText>
+    </div>
+    <div>
+        <button type="submit">Login</button>
+    </div>
+</EditForm>
+
+@if(errorMessage is not null)
+{
+    <span>
+        @errorMessage
+    </span>
+}
 
 @code {
     private LoginModel model = new LoginModel();
-    string? userName;
     string? errorMessage;
 
     private async Task Submit()
@@ -28,6 +33,8 @@
         try
         {
             await AccountService.Login(model);
+
+            NavManager.NavigateTo("/");
         }
         catch(Exception ex)
         {
@@ -40,15 +47,5 @@
         await base.OnInitializedAsync();
 
         var jwt = await AccountService.GetJwt();
-
-        if (string.IsNullOrEmpty(jwt)) userName = null;
-
-        AccountService.LoginChange += (name, role) =>
-        {
-            userName = name;
-
-            StateHasChanged();
-
-        };
     }
 }
