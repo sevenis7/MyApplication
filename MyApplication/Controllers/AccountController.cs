@@ -55,10 +55,10 @@ namespace MyApplication.Controllers
         /// <response code = "200">Returns AuthenticatedResponse (access and refresh tokens)</response>
         /// <response code = "401">If user doesn't exists or wrong password</response>
         /// <response code = "500">Internal Server Error</response>
+        [HttpPost("login")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        [HttpPost("login")]
         public async Task<ActionResult<AuthenticatedResponse>> Login([FromBody] LoginModel model)
         {
             var user = await _accountService.Login(model);
@@ -72,17 +72,17 @@ namespace MyApplication.Controllers
         }
 
         /// <summary>
-        /// Refresh
+        /// Refresh tokens
         /// </summary>
         /// <param name="model"></param>
         /// <returns>AuthenticatedResponse (access and refresh tokens)</returns> 
         /// <response code = "200">Returns AuthenticatedResponse (access and refresh tokens)</response>
         /// <response code = "401">If user doesn't exists, wrong password or expired refresh token</response>
         /// <response code = "500">Internal Server Error</response>
+        [HttpPost("refresh")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        [HttpPost("refresh")]
         public async Task<ActionResult<AuthenticatedResponse>> Refresh([FromBody] RefreshModel model)
         {
             bool isValid = await _refreshTokenService.Validate(model.RefreshToken);
@@ -100,6 +100,28 @@ namespace MyApplication.Controllers
             var response = await _accountService.Authenticate(user);
 
             return Ok(response);
+        }
+
+        /// <summary>
+        /// Revoke refresh tokens
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete("revoke")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(500)]
+        [Authorize]
+
+        public async Task<ActionResult> Revoke()
+        {
+            var userName = HttpContext.User.Identity?.Name;
+
+            if (userName is null)
+                return Unauthorized();
+
+            await _refreshTokenService.Revoke(userName);
+
+            return Ok();
         }
 
     }

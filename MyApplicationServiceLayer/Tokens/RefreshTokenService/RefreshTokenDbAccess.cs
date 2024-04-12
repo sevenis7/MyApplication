@@ -15,9 +15,9 @@ namespace MyApplicationServiceLayer.Tokens.RefreshTokenService
 
         public async Task<User?> GetUser(string refreshToken)
         {
-            var token = await _context.RefreshTokens.
-                Include(rt => rt.User.Role).
-                FirstOrDefaultAsync(rt => rt.Token == refreshToken);
+            var token = await _context.RefreshTokens
+                .Include(rt => rt.User.Role)
+                .FirstOrDefaultAsync(rt => rt.Token == refreshToken);
 
             var user = token.User;
 
@@ -25,6 +25,18 @@ namespace MyApplicationServiceLayer.Tokens.RefreshTokenService
                 return null;
 
             return user;
+        }
+
+        public async Task Revoke(string userName)
+        {
+            var tokens = await _context.RefreshTokens
+                .Include(rt=>rt.User)
+                .Where(rt => rt.User.UserName == userName)
+                .ToListAsync();
+
+            _context.RefreshTokens.RemoveRange(tokens);
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task Delete(string refreshToken)

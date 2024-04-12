@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MyApplicationDataLayer.DataContext;
-using MyApplicationDataLayer.Entities;
+﻿using MyApplicationDataLayer.Entities;
 
 namespace MyApplicationServiceLayer.Tokens.RefreshTokenService
 {
@@ -30,6 +28,11 @@ namespace MyApplicationServiceLayer.Tokens.RefreshTokenService
         public async Task Delete(string refreshToken)
         {
             await _dbAccess.Delete(refreshToken);
+        }
+
+        public async Task Revoke(string userName)
+        {
+            await _dbAccess.Revoke(userName);
         }
 
         public async Task<RefreshToken?> Add(RefreshToken refreshToken)

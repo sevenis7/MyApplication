@@ -8,5 +8,6 @@ namespace MyApplicationServiceLayer.Tokens.RefreshTokenService
         Task<User?> GetUser(string refreshToken);
         Task Delete(string refreshToken);
         Task<bool> Validate(string refreshToken);
+        Task Revoke(string userName);
     }
 }
