@@ -14,9 +14,13 @@ namespace MyApplicationClient
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
+            builder.Services.AddTransient<AuthenticationHandler>();
+            builder.Services.AddTransient<TokenRefreshHandler>();
+
             builder.Services.AddHttpClient("ServerApi")
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.Configuration["ServerUrl"] ?? ""))
-                .AddHttpMessageHandler<AuthenticationHandler>();
+                .AddHttpMessageHandler<AuthenticationHandler>()
+                .AddHttpMessageHandler<TokenRefreshHandler>();
 
             builder.Services.AddSingleton<IAccountService, AccountService>();
             builder.Services.AddBlazoredLocalStorageAsSingleton();

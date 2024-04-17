@@ -10,7 +10,7 @@ namespace MyApplicationClient.Services
 {
     public class AccountService : IAccountService
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _factory;
         private readonly ILocalStorageService _localStorageService;
 
         private const string JWT = nameof(JWT);
@@ -22,13 +22,13 @@ namespace MyApplicationClient.Services
 
         public AccountService(IHttpClientFactory factory, ILocalStorageService localStorageService)
         {
-            _httpClient = factory.CreateClient("ServerApi");
+            _factory = factory;
             _localStorageService = localStorageService;
         }
 
         public async Task Login(LoginModel model)
         {
-            var response = await _httpClient.PostAsync("api/account/login", JsonContent.Create(model));
+            var response = await _factory.CreateClient("ServerApi").PostAsync("api/account/login", JsonContent.Create(model));
 
             if (!response.IsSuccessStatusCode)
                 throw new UnauthorizedAccessException("Login failed.");
@@ -53,7 +53,7 @@ namespace MyApplicationClient.Services
                 RefreshToken = await _localStorageService.GetItemAsync<string>(REFRESH)
             };
 
-            var response = await _httpClient.PostAsync("api/account/refresh", JsonContent.Create(model));
+            var response = await _factory.CreateClient("ServerApi").PostAsync("api/account/refresh", JsonContent.Create(model));
 
             if (!response.IsSuccessStatusCode)
             {
@@ -86,7 +86,7 @@ namespace MyApplicationClient.Services
 
         public async Task Logout()
         {
-            await _httpClient.DeleteAsync("api/account/revoke");
+            await _factory.CreateClient("ServerApi").DeleteAsync("api/account/revoke");
 
             await _localStorageService.RemoveItemAsync(JWT);
             await _localStorageService .RemoveItemAsync(REFRESH);

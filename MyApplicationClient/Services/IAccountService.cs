@@ -9,5 +9,6 @@ namespace MyApplicationClient.Services
         ValueTask<string> GetJwt();
         Task Login(LoginModel model);
         Task Logout();
+        Task<bool> Refresh();
     }
 }
