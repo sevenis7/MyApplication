@@ -1,4 +1,4 @@
-﻿namespace MyApplicationServiceLayer.Authenticate.Registration.Models
+﻿namespace MyApplicationServiceLayer.Tokens.RefreshTokenService.Models
 {
     public class RefreshModel
     {

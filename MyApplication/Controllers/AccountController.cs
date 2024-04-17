@@ -5,6 +5,7 @@ using MyApplicationServiceLayer.Authenticate;
 using MyApplicationServiceLayer.Authenticate.Login.Models;
 using MyApplicationServiceLayer.Authenticate.Registration.Models;
 using MyApplicationServiceLayer.Tokens.RefreshTokenService;
+using MyApplicationServiceLayer.Tokens.RefreshTokenService.Models;
 
 namespace MyApplication.Controllers
 {
