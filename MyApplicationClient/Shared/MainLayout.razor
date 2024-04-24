@@ -1,9 +1,37 @@
 ﻿@inherits LayoutComponentBase
+@inject IAccountService AccountService
+@inject UserState UserState;
 
 <nav>
-    <User/>
+    <User UserName="@UserState.UserName" Logout="Logout"/>
+    <NavLink href="/requests">Requests</NavLink>
 </nav>
 
 <main>
     @Body
 </main>
+
+@code{
+
+    protected override async Task OnInitializedAsync()
+    {
+        var jwt = await AccountService.GetJwt();
+
+        if (!string.IsNullOrEmpty(jwt))
+            UserState.SetUser(AccountService.GetUserName(jwt), AccountService.GetUserName(jwt));
+
+        AccountService.LoginChange += (name, role) =>
+        {
+            UserState.SetUser(name, role);
+
+            StateHasChanged();
+        };
+
+        await base.OnInitializedAsync();
+    }
+
+    private async Task Logout()
+    {
+        await AccountService.Logout();
+    }
+}

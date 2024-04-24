@@ -1,48 +1,24 @@
-@using MyApplicationServiceLayer.Authenticate.Login.Models
 @inject IAccountService AccountService
 
 @if (isLoggedIn)
 {
     <span>
-        Hello @userName!
+        Hello @UserName!
         <a @onclick="Logout">Logout</a>
     </span>
 }
 else
 {
-    if (isVisible)
-    {
-        <NavLink href="login" @onclick="ToggleVisibility">Login</NavLink>
-    }
+    <NavLink href="login">Login</NavLink>
 }
 
 @code {
 
-    private string? userName;
-    private bool isLoggedIn => userName is not null;
-    private bool isVisible = true;
+    [Parameter]
+    public string? UserName { get; set; }
 
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
+    [Parameter]
+    public EventCallback Logout { get; set; }
 
-        AccountService.LoginChange += (name, role) =>
-        {
-            userName = name;
-
-            StateHasChanged();
-        };
-    }
-
-    private async Task Logout()
-    {
-        await AccountService.Logout();
-
-        isVisible = true;
-    }
-
-    private void ToggleVisibility()
-    {
-        isVisible = false;
-    }
+    private bool isLoggedIn => UserName is not null;
 }
