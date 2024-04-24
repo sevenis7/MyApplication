@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using MyApplicationDataLayer.DataContext;
 using MyApplicationDataLayer.Entities;
 

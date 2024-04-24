@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MyApplicationClient.Handlers;
 using MyApplicationClient.Services;
+using MyApplicationClient.States;
 
 namespace MyApplicationClient
 {
@@ -11,11 +12,14 @@ namespace MyApplicationClient
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
             builder.Services.AddTransient<AuthenticationHandler>();
             builder.Services.AddTransient<TokenRefreshHandler>();
+
+            builder.Services.AddSingleton<UserState>();
 
             builder.Services.AddHttpClient("ServerApi")
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.Configuration["ServerUrl"] ?? ""))
@@ -26,7 +30,6 @@ namespace MyApplicationClient
             builder.Services.AddBlazoredLocalStorageAsSingleton();
 
             builder.Services.AddScoped<IRequestService, RequestService>();
-
 
             await builder.Build().RunAsync();
         }
