@@ -76,7 +76,7 @@ namespace MyApplicationClient.Services
 
         } 
 
-        public async ValueTask<string> GetJwt()
+        public async ValueTask<string?> GetJwt()
         {
             if (string.IsNullOrEmpty(_jwt))
                 _jwt = await _localStorageService.GetItemAsync<string>(JWT);
@@ -96,12 +96,12 @@ namespace MyApplicationClient.Services
             LoginChange?.Invoke(null, null);
         }
 
-        private static string GetUserName(string token)
+        public string GetUserName(string token)
         {
             return new JwtSecurityToken(token).Claims.First(c => c.Type == ClaimTypes.Name).Value;
         }
 
-        private static string GetRole(string token)
+        public string GetRole(string token)
         {
             return new JwtSecurityToken(token).Claims.First(c => c.Type == ClaimTypes.Role).Value;
         }
