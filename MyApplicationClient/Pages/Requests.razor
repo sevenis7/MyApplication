@@ -1,19 +1,40 @@
 ﻿@page "/requests"
+@inject IRequestService RequestService;
+@inject UserState UserState;
+@inject NavigationManager NavManager;
 
-<h3>Requests</h3>
-
-@foreach(var e in ListRequests)
+@if (UserState.Role == "admin")
 {
-   @e.Text;
+    <span>ADMIN</span>
+    <table>
+        <thead>
+            <tr>
+                <th>Text</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var request in ListRequests)
+            {
+                <tr>
+                    <td>@request.Text</td>
+                    <td>@request.Status</td>
+                    <td>@request.Date</td>
+                    <td>@request.UserName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <span>NE ADMIN</span>
 }
 
 @code {
-
-    [Inject]
-    private IRequestService RequestService { get; set; } = null!;
-
     public IEnumerable<RequestModel> ListRequests { get; private set; } = Enumerable.Empty<RequestModel>();
-
 
     protected override async Task OnInitializedAsync()
     {

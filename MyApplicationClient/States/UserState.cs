@@ -1,9 +1,12 @@
-﻿namespace MyApplicationClient.States
+﻿using MyApplicationClient.Services;
+
+namespace MyApplicationClient.States
 {
     public class UserState
     {
         public string UserName { get; private set; }
         public string Role { get; private set; }
+        public bool IsLoggedIn { get => UserName is not null; }
 
         public void SetUser(string userName, string role)
         {

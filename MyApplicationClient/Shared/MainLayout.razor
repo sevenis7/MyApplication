@@ -3,7 +3,7 @@
 @inject UserState UserState;
 
 <nav>
-    <User UserName="@UserState.UserName" Logout="Logout"/>
+    <User/>
     <NavLink href="/requests">Requests</NavLink>
 </nav>
 
@@ -18,7 +18,18 @@
         var jwt = await AccountService.GetJwt();
 
         if (!string.IsNullOrEmpty(jwt))
-            UserState.SetUser(AccountService.GetUserName(jwt), AccountService.GetUserName(jwt));
+        {
+            var token = new JwtSecurityTokenHandler().ReadJwtToken(jwt);
+            var expired = token.ValidTo >= DateTime.Now;
+
+            if (expired)
+            {
+                var name = AccountService.GetUserName(jwt);
+                var role = AccountService.GetRole(jwt);
+
+                UserState.SetUser(name, role);
+            }
+        }
 
         AccountService.LoginChange += (name, role) =>
         {
@@ -28,10 +39,5 @@
         };
 
         await base.OnInitializedAsync();
-    }
-
-    private async Task Logout()
-    {
-        await AccountService.Logout();
     }
 }

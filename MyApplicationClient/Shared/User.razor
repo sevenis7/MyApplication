@@ -1,9 +1,10 @@
+@inject UserState UserState
 @inject IAccountService AccountService
 
-@if (isLoggedIn)
+@if (UserState.IsLoggedIn)
 {
     <span>
-        Hello @UserName!
+        Hello @UserState.UserName!
         <a @onclick="Logout">Logout</a>
     </span>
 }
@@ -14,11 +15,8 @@ else
 
 @code {
 
-    [Parameter]
-    public string? UserName { get; set; }
-
-    [Parameter]
-    public EventCallback Logout { get; set; }
-
-    private bool isLoggedIn => UserName is not null;
+    private async Task Logout()
+    {
+        await AccountService.Logout();
+    }
 }

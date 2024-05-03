@@ -18,13 +18,15 @@ namespace MyApplicationClient
 
             builder.Services.AddTransient<AuthenticationHandler>();
             builder.Services.AddTransient<TokenRefreshHandler>();
+            builder.Services.AddTransient<ErrorAuthenticationHandler>();
 
             builder.Services.AddSingleton<UserState>();
 
             builder.Services.AddHttpClient("ServerApi")
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.Configuration["ServerUrl"] ?? ""))
                 .AddHttpMessageHandler<AuthenticationHandler>()
-                .AddHttpMessageHandler<TokenRefreshHandler>();
+                .AddHttpMessageHandler<TokenRefreshHandler>()
+                .AddHttpMessageHandler<ErrorAuthenticationHandler>();
 
             builder.Services.AddSingleton<IAccountService, AccountService>();
             builder.Services.AddBlazoredLocalStorageAsSingleton();
