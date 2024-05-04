@@ -8,6 +8,7 @@ namespace MyApplicationClient.Handlers
     {
         private readonly IAccountService _accountService;
         private readonly IConfiguration _configuration;
+        private bool _refreshing;
 
         public TokenRefreshHandler(IAccountService accountService, IConfiguration configuration)
         {
@@ -18,30 +19,39 @@ namespace MyApplicationClient.Handlers
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var jwt = await _accountService.GetJwt();
+            var isToServer = request.RequestUri?.AbsoluteUri.StartsWith(_configuration["ServerUrl"] ?? "") ?? false;
 
             var response = await base.SendAsync(request, cancellationToken);
 
-            if (!string.IsNullOrEmpty(jwt) && IsToServer(request) && response.StatusCode == HttpStatusCode.Unauthorized)
+            if (!string.IsNullOrEmpty(jwt) 
+                && isToServer
+                && response.StatusCode == HttpStatusCode.Unauthorized
+                && !_refreshing)
             {
-                if (await _accountService.Refresh())
+                try
                 {
-                    jwt = await _accountService.GetJwt();
+                    _refreshing = true;
 
-                    if (!string.IsNullOrEmpty(jwt))
+                    if (await _accountService.Refresh())
                     {
-                        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
+                        jwt = await _accountService.GetJwt();
+
+                        if (!string.IsNullOrEmpty(jwt) && isToServer)
+                        {
+                            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
+                        }
 
                         response = await base.SendAsync(request, cancellationToken);
                     }
                 }
+                finally 
+                {
+                    _refreshing = false;
+                }
+               
             }
 
             return response;
-        }
-
-        private bool IsToServer(HttpRequestMessage request)
-        {
-            return request.RequestUri?.AbsoluteUri.StartsWith(_configuration["ServerUrl"] ?? "") ?? false;
         }
 
     }

@@ -16,19 +16,14 @@ namespace MyApplicationClient.Handlers
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var text = _configuration["ServerUrl"];
-
             var jwt = await _accountService.GetJwt();
+            var isToServer = request.RequestUri?.AbsoluteUri.StartsWith(_configuration["ServerUrl"] ?? "") ?? false;
 
-            if (IsToServer(request) && !string.IsNullOrEmpty(jwt))
+
+            if (isToServer && !string.IsNullOrEmpty(jwt))
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
 
             return await base.SendAsync(request, cancellationToken);
-        }
-
-        private bool IsToServer(HttpRequestMessage request)
-        {
-            return request.RequestUri?.AbsoluteUri.StartsWith(_configuration["ServerUrl"] ?? "") ?? false;
         }
     }
 }
