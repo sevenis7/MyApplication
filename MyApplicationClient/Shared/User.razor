@@ -1,10 +1,11 @@
 @inject UserState UserState
 @inject IAccountService AccountService
+@inject NavigationManager NavigationManager
 
-@if (UserState.IsLoggedIn)
+@if (IsLoggedIn)
 {
     <span>
-        Hello @UserState.UserName!
+        Hello @UserState.UserName
         <a @onclick="Logout">Logout</a>
     </span>
 }
@@ -14,9 +15,17 @@ else
 }
 
 @code {
+    private bool IsLoggedIn;
+
+    protected override void OnInitialized()
+    {
+        IsLoggedIn = UserState.UserName is not null;
+    }
 
     private async Task Logout()
     {
         await AccountService.Logout();
+
+        NavigationManager.NavigateTo("/");
     }
 }

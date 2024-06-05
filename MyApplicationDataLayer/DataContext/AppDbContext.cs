@@ -32,6 +32,7 @@ namespace MyApplicationDataLayer.DataContext
             builder.Entity<User>()
                 .HasMany(u => u.RefreshTokens)
                 .WithOne(rt => rt.User);
+
         }
     }
 }

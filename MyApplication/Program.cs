@@ -25,7 +25,7 @@ namespace MyApplication
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async void Main(string[] args)
         {
 
             var builder = WebApplication.CreateBuilder(args);
@@ -136,6 +136,7 @@ namespace MyApplication
                     var dataInitializer = services.GetRequiredService<DataInitializer>();
 
                     dataInitializer.Initialize().Wait();
+
                 }
                 catch (Exception ex)
                 {

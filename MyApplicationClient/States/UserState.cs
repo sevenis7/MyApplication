@@ -1,5 +1,4 @@
-﻿using MyApplicationClient.Services;
-
+﻿
 namespace MyApplicationClient.States
 {
     public class UserState
@@ -8,10 +7,14 @@ namespace MyApplicationClient.States
         public string Role { get; private set; }
         public bool IsLoggedIn { get => UserName is not null; }
 
+        public event Action<string, string> UserChange; 
+
         public void SetUser(string userName, string role)
         {
             UserName = userName;
             Role = role;
+
+            UserChange?.Invoke(userName, role);
         }
     }
 }

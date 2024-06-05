@@ -112,7 +112,6 @@ namespace MyApplication.Controllers
         [ProducesResponseType(401)]
         [ProducesResponseType(500)]
         [Authorize]
-
         public async Task<ActionResult> Revoke()
         {
             var userName = HttpContext.User.Identity?.Name;

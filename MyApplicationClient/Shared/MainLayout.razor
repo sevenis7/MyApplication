@@ -1,6 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @inject IAccountService AccountService
-@inject UserState UserState;
+@inject NavigationManager NavigationManager
+@inject UserState UserState
 
 <nav>
     <User/>
@@ -15,29 +16,13 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var jwt = await AccountService.GetJwt();
-
-        if (!string.IsNullOrEmpty(jwt))
-        {
-            var token = new JwtSecurityTokenHandler().ReadJwtToken(jwt);
-            var expired = token.ValidTo >= DateTime.Now;
-
-            if (expired)
-            {
-                var name = AccountService.GetUserName(jwt);
-                var role = AccountService.GetRole(jwt);
-
-                UserState.SetUser(name, role);
-            }
-        }
-
         AccountService.LoginChange += (name, role) =>
         {
             UserState.SetUser(name, role);
 
+            Console.Out.WriteLine($"UserName={UserState.UserName}, Role={UserState.Role}");
+
             StateHasChanged();
         };
-
-        await base.OnInitializedAsync();
     }
 }

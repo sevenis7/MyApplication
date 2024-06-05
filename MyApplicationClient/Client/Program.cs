@@ -18,7 +18,8 @@ namespace MyApplicationClient
 
             builder.Services.AddTransient<AuthenticationHandler>();
             builder.Services.AddTransient<TokenRefreshHandler>();
-            builder.Services.AddTransient<ErrorAuthenticationHandler>();
+            builder.Services.AddTransient<Startup>();
+            //builder.Services.AddTransient<ErrorAuthenticationHandler>();
 
             builder.Services.AddSingleton<UserState>();
 
@@ -26,12 +27,15 @@ namespace MyApplicationClient
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.Configuration["ServerUrl"] ?? ""))
                 .AddHttpMessageHandler<AuthenticationHandler>()
                 .AddHttpMessageHandler<TokenRefreshHandler>()
-                .AddHttpMessageHandler<ErrorAuthenticationHandler>();
+                /*.AddHttpMessageHandler<ErrorAuthenticationHandler>()*/;
 
             builder.Services.AddSingleton<IAccountService, AccountService>();
             builder.Services.AddBlazoredLocalStorageAsSingleton();
 
             builder.Services.AddScoped<IRequestService, RequestService>();
+
+            //var startup = builder.Build().Services.GetRequiredService<Startup>();
+            //await startup.Start();
 
             await builder.Build().RunAsync();
         }
