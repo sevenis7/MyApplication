@@ -94,6 +94,7 @@ namespace MyApplication
             builder.Services.AddTransient<IAccountService, AccountService>();
             builder.Services.AddTransient<IPostProjectService, PostProjectService>();
             builder.Services.AddTransient<RoleInitializer>();
+            builder.Services.AddTransient<RequestInitializer>();
 
             builder.Services.AddControllers()
                 .AddJsonOptions(options =>
@@ -134,8 +135,10 @@ namespace MyApplication
                 try
                 {
                     var roleInitializer = services.GetRequiredService<RoleInitializer>();
+                    var requestInitializer = services.GetRequiredService<RequestInitializer>();
 
                     roleInitializer.Initialize().Wait();
+                    requestInitializer.Initialize().Wait();
 
                 }
                 catch (Exception ex)

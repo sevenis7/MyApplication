@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using MyApplicationDataLayer.DataContext;
 using MyApplicationDataLayer.Entities;
 
 namespace MyApplicationServiceLayer
@@ -26,6 +25,7 @@ namespace MyApplicationServiceLayer
             await CreateUser("user", "userName", "userLastName", "user", "user@ex.com", "user");
             await CreateUser("IronMan", "Tony", "Stark", "ironMan", "ironman@ex.com", "user");
             await CreateUser("SpiderMan", "Peter", "Parker", "spiderMan", "spiderMan@ex.com", "user");
+            await CreateUser("Venom", "Eddie", "Brock", "Venom", "anti-spiderMan@ex.com", "user");
             await CreateUser("admin", "adminName", "adminLastName", "admin", "admin@ex.com", "admin");
         }
         private async Task<Role?> CreateRole(string roleName)
