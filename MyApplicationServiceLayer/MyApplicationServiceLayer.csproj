@@ -14,4 +14,8 @@
     <ProjectReference Include="..\MyApplicationDataLayer\MyApplicationDataLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Initializers\" />
+  </ItemGroup>
+
 </Project>

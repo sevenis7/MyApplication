@@ -25,7 +25,7 @@ namespace MyApplication
 {
     public class Program
     {
-        public static async void Main(string[] args)
+        public static void Main(string[] args)
         {
 
             var builder = WebApplication.CreateBuilder(args);
@@ -93,7 +93,7 @@ namespace MyApplication
             builder.Services.AddTransient<IRefreshTokenValidator, RefreshTokenValidator>();
             builder.Services.AddTransient<IAccountService, AccountService>();
             builder.Services.AddTransient<IPostProjectService, PostProjectService>();
-            builder.Services.AddTransient<DataInitializer>();
+            builder.Services.AddTransient<RoleInitializer>();
 
             builder.Services.AddControllers()
                 .AddJsonOptions(options =>
@@ -133,9 +133,9 @@ namespace MyApplication
 
                 try
                 {
-                    var dataInitializer = services.GetRequiredService<DataInitializer>();
+                    var roleInitializer = services.GetRequiredService<RoleInitializer>();
 
-                    dataInitializer.Initialize().Wait();
+                    roleInitializer.Initialize().Wait();
 
                 }
                 catch (Exception ex)
