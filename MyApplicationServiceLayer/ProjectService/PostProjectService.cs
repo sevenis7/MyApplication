@@ -19,8 +19,9 @@ namespace MyApplicationServiceLayer.ProjectService
 
             var project = new Project
             {
-                Text = model.Title,
-                Title = model.Text
+                Description = model.Title,
+                Title = model.Text,
+                ImageUrl = ""
             };
 
             _context.Projects.Add(project);
