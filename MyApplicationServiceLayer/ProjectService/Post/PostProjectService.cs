@@ -2,7 +2,7 @@
 using MyApplicationDataLayer.Entities;
 using MyApplicationServiceLayer.ProjectService.Models;
 
-namespace MyApplicationServiceLayer.ProjectService
+namespace MyApplicationServiceLayer.ProjectService.Post
 {
     public class PostProjectService : IPostProjectService
     {
@@ -13,15 +13,15 @@ namespace MyApplicationServiceLayer.ProjectService
             _context = context;
         }
 
-        public async Task<Project?> Post(PostProjectModel model)
+        public async Task<Project?> Post(ProjectModel model)
         {
-            if (String.IsNullOrWhiteSpace(model.Title) || String.IsNullOrWhiteSpace(model.Text)) return null;
+            if (string.IsNullOrWhiteSpace(model.Title) || string.IsNullOrWhiteSpace(model.Description)) return null;
 
             var project = new Project
             {
                 Description = model.Title,
-                Title = model.Text,
-                ImageUrl = ""
+                Title = model.Description,
+                ImageUrl = model.ImageUrl
             };
 
             _context.Projects.Add(project);

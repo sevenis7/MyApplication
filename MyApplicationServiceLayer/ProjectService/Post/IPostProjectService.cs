@@ -1,10 +1,10 @@
 ﻿using MyApplicationDataLayer.Entities;
 using MyApplicationServiceLayer.ProjectService.Models;
 
-namespace MyApplicationServiceLayer.ProjectService
+namespace MyApplicationServiceLayer.ProjectService.Post
 {
     public interface IPostProjectService
     {
-        Task<Project?> Post(PostProjectModel projectModel);
+        Task<Project?> Post(ProjectModel projectModel);
     }
 }

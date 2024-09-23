@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyApplicationDataLayer.Entities;
-using MyApplicationServiceLayer.ProjectService;
 using MyApplicationServiceLayer.ProjectService.Models;
+using MyApplicationServiceLayer.ProjectService.Post;
 
 namespace MyApplication.Controllers
 {
@@ -32,7 +32,7 @@ namespace MyApplication.Controllers
         [ProducesResponseType(401)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<Project>> Post([FromBody] PostProjectModel model)
+        public async Task<ActionResult<Project>> Post([FromBody] ProjectModel model)
         {
             var result = await _postProjectService.Post(model);
 
