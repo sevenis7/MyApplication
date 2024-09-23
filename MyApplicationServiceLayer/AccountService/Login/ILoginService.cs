@@ -1,7 +1,7 @@
 ﻿using MyApplicationDataLayer.Entities;
-using MyApplicationServiceLayer.Authenticate.Login.Models;
+using MyApplicationServiceLayer.AccountService.Login.Models;
 
-namespace MyApplicationServiceLayer.Authenticate.Login
+namespace MyApplicationServiceLayer.AccountService.Login
 {
     public interface ILoginService
     {

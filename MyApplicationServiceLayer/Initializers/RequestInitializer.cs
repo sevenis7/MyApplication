@@ -2,7 +2,7 @@
 using MyApplicationDataLayer.DataContext;
 using MyApplicationDataLayer.Entities;
 
-namespace MyApplicationServiceLayer
+namespace MyApplicationServiceLayer.Initializers
 {
     public class RequestInitializer
     {
@@ -10,7 +10,7 @@ namespace MyApplicationServiceLayer
         private readonly UserManager<User> _userManager;
 
         public RequestInitializer(
-            AppDbContext context, 
+            AppDbContext context,
             UserManager<User> userManager
             )
         {
@@ -51,11 +51,13 @@ namespace MyApplicationServiceLayer
             string userName
             )
         {
-            return new Request { 
+            return new Request
+            {
                 Text = text,
                 Status = status,
                 Date = date,
-                User = await _userManager.FindByNameAsync(userName) ?? throw new InvalidOperationException($"there is no {userName} user")};
+                User = await _userManager.FindByNameAsync(userName) ?? throw new InvalidOperationException($"there is no {userName} user")
+            };
         }
     }
 }

@@ -13,7 +13,7 @@ namespace MyApplicationServiceLayer.RequestService.List
             _context = context;
         }
 
-        public async Task<IQueryable<Request>?> GetAll()
+        public async Task<IQueryable<Request>?>? GetAll()
         {
             return _context.Requests;
         }

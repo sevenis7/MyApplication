@@ -78,7 +78,7 @@ namespace MyApplication.Controllers
         /// <response code = "401">If not authorized</response>
         /// <response code = "500">Internal Server Error</response>
         [HttpPost]
-        //[Authorize(Roles = "user")]
+        [Authorize(Roles = "user")]
         [ProducesResponseType(201, Type = typeof(Request))]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]

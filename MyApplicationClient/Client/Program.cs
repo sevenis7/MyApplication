@@ -22,6 +22,7 @@ namespace MyApplicationClient
             //builder.Services.AddTransient<ErrorAuthenticationHandler>();
 
             builder.Services.AddSingleton<UserState>();
+            builder.Services.AddSingleton<ComponentService>();
 
             builder.Services.AddHttpClient("ServerApi")
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.Configuration["ServerUrl"] ?? ""))
@@ -33,11 +34,16 @@ namespace MyApplicationClient
             builder.Services.AddBlazoredLocalStorageAsSingleton();
 
             builder.Services.AddScoped<IRequestService, RequestService>();
+         
+            var host = builder.Build();
 
-            //var startup = builder.Build().Services.GetRequiredService<Startup>();
-            //await startup.Start();
+            var startup = host.Services.GetRequiredService<Startup>();
+            var componentService = host.Services.GetRequiredService<ComponentService>();
 
-            await builder.Build().RunAsync();
+            await startup.Start();
+            await componentService.InitializeAsync();
+
+            await host.RunAsync();
         }
     }
 }

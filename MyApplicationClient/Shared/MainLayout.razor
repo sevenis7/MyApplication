@@ -2,12 +2,12 @@
 @inject IAccountService AccountService
 @inject NavigationManager NavigationManager
 @inject UserState UserState
+@inject ComponentService ComponentService
 
-<span>User is @UserState.UserName</span>
+@header
 
 <nav>
     <User></User>
-    @* <NavLink href="/login">Login</NavLink> *@
     <NavLink href="/requests">Requests</NavLink>
 </nav>
 
@@ -16,6 +16,7 @@
 </main>
 
 @code{
+    private string header;
 
     protected override void OnInitialized()
     {
@@ -25,5 +26,19 @@
 
             StateHasChanged();
         };
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            header = await ComponentService.Get("Index Page Title");
+            Console.WriteLine($"Loaded title: {header}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading component: {ex.Message}");
+        }
     }
 }

@@ -5,12 +5,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MyApplicationDataLayer.DataContext;
 using MyApplicationDataLayer.Entities;
-using MyApplicationServiceLayer;
 using MyApplicationServiceLayer.AccountService;
 using MyApplicationServiceLayer.AccountService.Login;
 using MyApplicationServiceLayer.Authenticate;
-using MyApplicationServiceLayer.Authenticate.Login;
 using MyApplicationServiceLayer.Authenticate.Registration;
+using MyApplicationServiceLayer.ComponentService;
 using MyApplicationServiceLayer.Initializers;
 using MyApplicationServiceLayer.ProjectService;
 using MyApplicationServiceLayer.RequestService;
@@ -19,6 +18,7 @@ using MyApplicationServiceLayer.RequestService.List;
 using MyApplicationServiceLayer.RequestService.PostRequest;
 using MyApplicationServiceLayer.Tokens.RefreshTokenService;
 using MyApplicationServiceLayer.Tokens.TokenGenerators;
+using System.ComponentModel;
 using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -95,8 +95,10 @@ namespace MyApplication
             builder.Services.AddTransient<IRefreshTokenValidator, RefreshTokenValidator>();
             builder.Services.AddTransient<IAccountService, AccountService>();
             builder.Services.AddTransient<IPostProjectService, PostProjectService>();
+            builder.Services.AddTransient<IComponentService, ComponentService>();
             builder.Services.AddTransient<RoleInitializer>();
             builder.Services.AddTransient<RequestInitializer>();
+            builder.Services.AddTransient<ComponentInitializer>();
 
             builder.Services.AddControllers()
                 .AddJsonOptions(options =>
@@ -138,9 +140,11 @@ namespace MyApplication
                 {
                     var roleInitializer = services.GetRequiredService<RoleInitializer>();
                     var requestInitializer = services.GetRequiredService<RequestInitializer>();
+                    var componentInitializer = services.GetRequiredService<ComponentInitializer>();
 
                     roleInitializer.Initialize().Wait();
                     requestInitializer.Initialize().Wait();
+                    componentInitializer.Initialize().Wait();
 
                 }
                 catch (Exception ex)

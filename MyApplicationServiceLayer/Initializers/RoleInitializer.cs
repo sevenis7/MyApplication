@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using MyApplicationDataLayer.Entities;
 
-namespace MyApplicationServiceLayer
+namespace MyApplicationServiceLayer.Initializers
 {
     public class RoleInitializer
     {
@@ -9,7 +9,7 @@ namespace MyApplicationServiceLayer
         private readonly RoleManager<Role> _roleManager;
 
         public RoleInitializer(
-            UserManager<User> userManager, 
+            UserManager<User> userManager,
             RoleManager<Role> roleManager
             )
         {
@@ -32,8 +32,9 @@ namespace MyApplicationServiceLayer
         {
             if (!await _roleManager.RoleExistsAsync(roleName))
             {
-                var role = new Role { 
-                    Name = roleName, 
+                var role = new Role
+                {
+                    Name = roleName,
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                 };
 

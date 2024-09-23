@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MyApplicationDataLayer.DataContext;
 using MyApplicationDataLayer.Entities;
-using MyApplicationServiceLayer.Authenticate.Login.Models;
+using MyApplicationServiceLayer.AccountService.Login.Models;
 
-namespace MyApplicationServiceLayer.Authenticate.Login
+namespace MyApplicationServiceLayer.AccountService.Login
 {
     public class LoginService : ILoginService
     {

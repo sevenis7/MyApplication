@@ -1,4 +1,4 @@
-﻿namespace MyApplicationServiceLayer.Authenticate.Login.Models
+﻿namespace MyApplicationServiceLayer.AccountService.Login.Models
 {
     public class LoginModel
     {
