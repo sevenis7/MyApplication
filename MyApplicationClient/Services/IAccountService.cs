@@ -1,4 +1,4 @@
-﻿using MyApplicationServiceLayer.Authenticate.Login.Models;
+﻿using MyApplicationServiceLayer.AccountService.Login.Models;
 
 namespace MyApplicationClient.Services
 {

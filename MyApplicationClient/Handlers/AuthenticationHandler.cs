@@ -19,7 +19,6 @@ namespace MyApplicationClient.Handlers
             var jwt = await _accountService.GetJwt();
             var isToServer = request.RequestUri?.AbsoluteUri.StartsWith(_configuration["ServerUrl"] ?? "") ?? false;
 
-
             if (isToServer && !string.IsNullOrEmpty(jwt))
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
 

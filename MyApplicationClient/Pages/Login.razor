@@ -1,11 +1,11 @@
 ﻿@page "/login"
-@inject IAccountService AccountService;
-@inject NavigationManager NavManager;
+@inject IAccountService AccountService
+@inject NavigationManager NavManager
 
 <EditForm Model="@model" OnValidSubmit="Submit">
     <div>
         <label>Username:</label>
-        <InputText @bind-Value="@model.UserName" requried/>
+        <InputText @bind-Value="@model.UserName" requried />
     </div>
     <div>
         <label>Password:</label>
@@ -16,7 +16,7 @@
     </div>
 </EditForm>
 
-@if(errorMessage is not null)
+@if (errorMessage is not null)
 {
     <span>
         @errorMessage

@@ -1,8 +1,8 @@
-@inject UserState UserState
 @inject IAccountService AccountService
 @inject NavigationManager NavigationManager
+@inject UserState UserState
 
-@if (IsLoggedIn)
+@if (UserState.UserName is not null)
 {
     <span>
         Hello @UserState.UserName
@@ -15,11 +15,9 @@ else
 }
 
 @code {
-    private bool IsLoggedIn;
-
     protected override void OnInitialized()
     {
-        IsLoggedIn = UserState.UserName is not null;
+        UserState.UserChange += StateHasChanged;
     }
 
     private async Task Logout()

@@ -3,8 +3,11 @@
 @inject NavigationManager NavigationManager
 @inject UserState UserState
 
+<span>User is @UserState.UserName</span>
+
 <nav>
-    <User/>
+    <User></User>
+    @* <NavLink href="/login">Login</NavLink> *@
     <NavLink href="/requests">Requests</NavLink>
 </nav>
 
@@ -14,13 +17,11 @@
 
 @code{
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         AccountService.LoginChange += (name, role) =>
         {
             UserState.SetUser(name, role);
-
-            Console.Out.WriteLine($"UserName={UserState.UserName}, Role={UserState.Role}");
 
             StateHasChanged();
         };

@@ -12,9 +12,11 @@ namespace MyApplicationClient.Services
         private const string JWT = nameof(JWT);
         private const string REFRESH = nameof(REFRESH);
 
-        public Startup(IHttpClientFactory factory,
+        public Startup(
+            IHttpClientFactory factory,
             UserState userState,
-            IAccountService accountService)
+            IAccountService accountService
+            )
         {
             _httpClient = factory.CreateClient("ServerApi");
             _userState = userState;

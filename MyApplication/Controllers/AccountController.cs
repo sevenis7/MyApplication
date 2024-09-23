@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyApplicationServiceLayer.AccountService;
+using MyApplicationServiceLayer.AccountService.Login.Models;
 using MyApplicationServiceLayer.Authenticate;
-using MyApplicationServiceLayer.Authenticate.Login.Models;
 using MyApplicationServiceLayer.Authenticate.Registration.Models;
 using MyApplicationServiceLayer.Tokens.RefreshTokenService;
 using MyApplicationServiceLayer.Tokens.RefreshTokenService.Models;

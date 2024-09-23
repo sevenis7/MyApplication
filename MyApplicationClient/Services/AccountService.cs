@@ -1,6 +1,6 @@
 ﻿using Blazored.LocalStorage;
+using MyApplicationServiceLayer.AccountService.Login.Models;
 using MyApplicationServiceLayer.Authenticate;
-using MyApplicationServiceLayer.Authenticate.Login.Models;
 using MyApplicationServiceLayer.Tokens.RefreshTokenService.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Json;

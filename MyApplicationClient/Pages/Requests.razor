@@ -1,45 +1,38 @@
 ﻿@page "/requests"
-@inject IRequestService RequestService;
-@inject UserState UserState;
-@inject NavigationManager NavManager;
+@inject IRequestService RequestService
+@inject UserState UserState
+@inject NavigationManager NavManager
 
-@if (UserState.Role == "admin")
-{
-    <span>ADMIN</span>
-    <table>
-        <thead>
+
+<table>
+    <thead>
+        <tr>
+            <th>Text</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in ListRequests)
+        {
             <tr>
-                <th>Text</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>Name</th>
+                <td>@request.Text</td>
+                <td>@request.Status</td>
+                <td>@request.Date</td>
+                <td>@request.UserName</td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var request in ListRequests)
-            {
-                <tr>
-                    <td>@request.Text</td>
-                    <td>@request.Status</td>
-                    <td>@request.Date</td>
-                    <td>@request.UserName</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <span>NE ADMIN</span>
-}
+        }
+    </tbody>
+</table>
 
 @code {
     public IEnumerable<RequestModel> ListRequests { get; private set; } = Enumerable.Empty<RequestModel>();
 
     protected override async Task OnInitializedAsync()
     {
-        await base.OnInitializedAsync();
-
         ListRequests = await RequestService.GetAll();
+
+        await base.OnInitializedAsync();
     }
 }
