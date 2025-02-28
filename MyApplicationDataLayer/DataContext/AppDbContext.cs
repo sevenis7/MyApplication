@@ -12,11 +12,10 @@ namespace MyApplicationDataLayer.DataContext
         public override DbSet<Role> Roles { get; set; }
         public override DbSet<User> Users { get; set; }
         public DbSet<Project> Projects { get; set; }
-        public DbSet<Component> Components { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
+
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

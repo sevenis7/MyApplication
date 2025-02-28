@@ -1,14 +1,13 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using MyApplicationDataLayer.DataContext;
 using MyApplicationDataLayer.Entities;
 using MyApplicationServiceLayer.AccountService;
 using MyApplicationServiceLayer.AccountService.Login;
 using MyApplicationServiceLayer.Authenticate;
 using MyApplicationServiceLayer.Authenticate.Registration;
+using MyApplicationServiceLayer.ComponentService;
 using MyApplicationServiceLayer.Initializers;
 using MyApplicationServiceLayer.ProjectService.Post;
 using MyApplicationServiceLayer.RequestService;
@@ -93,6 +92,7 @@ namespace MyApplication
             builder.Services.AddTransient<IRefreshTokenValidator, RefreshTokenValidator>();
             builder.Services.AddTransient<IAccountService, AccountService>();
             builder.Services.AddTransient<IPostProjectService, PostProjectService>();
+            builder.Services.AddTransient<IComponentService, ComponentService>();
             builder.Services.AddTransient<RoleInitializer>();
             builder.Services.AddTransient<RequestInitializer>();
 

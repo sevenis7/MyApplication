@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApplication", "MyApplicat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApplicationDataLayer", "..\MyApplicationDataLayer\MyApplicationDataLayer.csproj", "{E63FF6CF-AEF4-4A17-848B-CF3A3179FFB3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApplicationClient", "..\MyApplicationClient\MyApplicationClient.csproj", "{F7BD6424-53AA-4435-A25D-535D5B439B43}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApplicationServiceLayer", "..\MyApplicationServiceLayer\MyApplicationServiceLayer.csproj", "{5D6ED06D-01F7-4854-861E-01C500BBE5F3}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{E63FF6CF-AEF4-4A17-848B-CF3A3179FFB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E63FF6CF-AEF4-4A17-848B-CF3A3179FFB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E63FF6CF-AEF4-4A17-848B-CF3A3179FFB3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F7BD6424-53AA-4435-A25D-535D5B439B43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7BD6424-53AA-4435-A25D-535D5B439B43}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F7BD6424-53AA-4435-A25D-535D5B439B43}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7BD6424-53AA-4435-A25D-535D5B439B43}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5D6ED06D-01F7-4854-861E-01C500BBE5F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5D6ED06D-01F7-4854-861E-01C500BBE5F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D6ED06D-01F7-4854-861E-01C500BBE5F3}.Release|Any CPU.ActiveCfg = Release|Any CPU

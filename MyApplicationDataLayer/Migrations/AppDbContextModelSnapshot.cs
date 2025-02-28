@@ -41,7 +41,7 @@ namespace MyApplicationDataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RoleClaims");
+                    b.ToTable("RoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
@@ -63,7 +63,7 @@ namespace MyApplicationDataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserClaims");
+                    b.ToTable("UserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
@@ -82,7 +82,7 @@ namespace MyApplicationDataLayer.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.ToTable("UserLogins");
+                    b.ToTable("UserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
@@ -93,7 +93,7 @@ namespace MyApplicationDataLayer.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
@@ -112,7 +112,7 @@ namespace MyApplicationDataLayer.Migrations
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("UserTokens");
+                    b.ToTable("UserTokens", (string)null);
                 });
 
             modelBuilder.Entity("MyApplicationDataLayer.Entities.Component", b =>
@@ -133,7 +133,7 @@ namespace MyApplicationDataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Components");
+                    b.ToTable("Components", (string)null);
                 });
 
             modelBuilder.Entity("MyApplicationDataLayer.Entities.Project", b =>
@@ -158,7 +158,7 @@ namespace MyApplicationDataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("MyApplicationDataLayer.Entities.RefreshToken", b =>
@@ -183,7 +183,7 @@ namespace MyApplicationDataLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RefreshTokens");
+                    b.ToTable("RefreshTokens", (string)null);
                 });
 
             modelBuilder.Entity("MyApplicationDataLayer.Entities.Request", b =>
@@ -211,7 +211,7 @@ namespace MyApplicationDataLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Requests");
+                    b.ToTable("Requests", (string)null);
                 });
 
             modelBuilder.Entity("MyApplicationDataLayer.Entities.Role", b =>
@@ -233,7 +233,7 @@ namespace MyApplicationDataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("MyApplicationDataLayer.Entities.User", b =>
@@ -301,7 +301,7 @@ namespace MyApplicationDataLayer.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("MyApplicationDataLayer.Entities.RefreshToken", b =>
