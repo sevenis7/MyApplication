@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyApplicationDataLayer.DataContext;
 using MyApplicationDomain.Entities;
+using MyApplicationDomain.Repositories;
 
 namespace MyApplicationDataLayer.Repositories
 {

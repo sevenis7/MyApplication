@@ -20,6 +20,12 @@ namespace MyApplicationDataLayer.DataContext
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder
+                .Entity<Role>()
+                .HasData(
+                new Role { Id = 1, Name = "user", NormalizedName = "USER" },
+                new Role { Id = 2, Name = "admin", NormalizedName = "ADMIN" });
+
             builder.Entity<IdentityUserLogin<int>>().HasNoKey();
             builder.Entity<IdentityUserRole<int>>().HasNoKey();
             builder.Entity<IdentityUserToken<int>>().HasNoKey();

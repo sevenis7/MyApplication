@@ -37,7 +37,7 @@ namespace MyApplicationServiceLayer.RequestService
             return await _requestListService.Get(id);
         }
 
-        public IQueryable<Request>? GetAll()
+        public IQueryable<Request> GetAll()
         {
             return _requestListService.GetAll();
         }

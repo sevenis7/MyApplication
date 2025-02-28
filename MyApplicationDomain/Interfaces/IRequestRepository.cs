@@ -1,6 +1,6 @@
 ﻿using MyApplicationDomain.Entities;
 
-namespace MyApplicationDataLayer.Repositories
+namespace MyApplicationDomain.Repositories
 {
     public interface IRequestRepository
     {

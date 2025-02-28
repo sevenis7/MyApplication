@@ -41,7 +41,7 @@ namespace MyApplicationDataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RoleClaims", (string)null);
+                    b.ToTable("RoleClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
@@ -63,7 +63,7 @@ namespace MyApplicationDataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserClaims", (string)null);
+                    b.ToTable("UserClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
@@ -82,7 +82,7 @@ namespace MyApplicationDataLayer.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.ToTable("UserLogins", (string)null);
+                    b.ToTable("UserLogins");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
@@ -93,7 +93,7 @@ namespace MyApplicationDataLayer.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
@@ -112,31 +112,10 @@ namespace MyApplicationDataLayer.Migrations
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("UserTokens", (string)null);
+                    b.ToTable("UserTokens");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.Component", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Components", (string)null);
-                });
-
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.Project", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.Project", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -149,7 +128,6 @@ namespace MyApplicationDataLayer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
@@ -158,10 +136,10 @@ namespace MyApplicationDataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects", (string)null);
+                    b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.RefreshToken", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -183,10 +161,10 @@ namespace MyApplicationDataLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RefreshTokens", (string)null);
+                    b.ToTable("RefreshTokens");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.Request", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.Request", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -211,10 +189,10 @@ namespace MyApplicationDataLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Requests", (string)null);
+                    b.ToTable("Requests");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.Role", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -233,10 +211,24 @@ namespace MyApplicationDataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "user",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.User", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -301,12 +293,12 @@ namespace MyApplicationDataLayer.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.RefreshToken", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.RefreshToken", b =>
                 {
-                    b.HasOne("MyApplicationDataLayer.Entities.User", "User")
+                    b.HasOne("MyApplicationDomain.Entities.User", "User")
                         .WithMany("RefreshTokens")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -315,9 +307,9 @@ namespace MyApplicationDataLayer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.Request", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.Request", b =>
                 {
-                    b.HasOne("MyApplicationDataLayer.Entities.User", "User")
+                    b.HasOne("MyApplicationDomain.Entities.User", "User")
                         .WithMany("Requests")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -326,9 +318,9 @@ namespace MyApplicationDataLayer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.User", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.User", b =>
                 {
-                    b.HasOne("MyApplicationDataLayer.Entities.Role", "Role")
+                    b.HasOne("MyApplicationDomain.Entities.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -337,12 +329,12 @@ namespace MyApplicationDataLayer.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.Role", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.Role", b =>
                 {
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.User", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.User", b =>
                 {
                     b.Navigation("RefreshTokens");
 

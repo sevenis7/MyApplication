@@ -1,7 +1,6 @@
-﻿using MyApplicationDataLayer.DataContext;
-using MyApplicationDomain.Entities;
-using MyApplicationDataLayer.Repositories;
+﻿using MyApplicationDomain.Entities;
 using MyApplicationServiceLayer.RequestService.PostRequest.Models;
+using MyApplicationDomain.Repositories;
 
 namespace MyApplicationServiceLayer.RequestService.PostRequest
 {

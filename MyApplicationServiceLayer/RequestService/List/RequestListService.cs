@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MyApplicationDataLayer.DataContext;
-using MyApplicationDomain.Entities;
-using MyApplicationDataLayer.Repositories;
+﻿using MyApplicationDomain.Entities;
+using MyApplicationDomain.Repositories;
 
 namespace MyApplicationServiceLayer.RequestService.List
 {

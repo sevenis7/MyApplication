@@ -12,8 +12,8 @@ using MyApplicationDataLayer.DataContext;
 namespace MyApplicationDataLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240605140356_RequestEntity")]
-    partial class RequestEntity
+    [Migration("20250228153922_AddedRoles")]
+    partial class AddedRoles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,7 +118,7 @@ namespace MyApplicationDataLayer.Migrations
                     b.ToTable("UserTokens");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.Project", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.Project", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,11 +126,11 @@ namespace MyApplicationDataLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("Text")
+                    b.Property<string>("Description")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
@@ -142,7 +142,7 @@ namespace MyApplicationDataLayer.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.RefreshToken", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -167,7 +167,7 @@ namespace MyApplicationDataLayer.Migrations
                     b.ToTable("RefreshTokens");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.Request", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.Request", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -193,19 +193,9 @@ namespace MyApplicationDataLayer.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Requests");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 5,
-                            Date = new DateTime(2024, 6, 5, 17, 3, 55, 950, DateTimeKind.Local).AddTicks(8203),
-                            Status = 0,
-                            Text = "prosto text",
-                            UserId = 1
-                        });
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.Role", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -225,9 +215,23 @@ namespace MyApplicationDataLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "user",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.User", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -295,9 +299,9 @@ namespace MyApplicationDataLayer.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.RefreshToken", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.RefreshToken", b =>
                 {
-                    b.HasOne("MyApplicationDataLayer.Entities.User", "User")
+                    b.HasOne("MyApplicationDomain.Entities.User", "User")
                         .WithMany("RefreshTokens")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -306,9 +310,9 @@ namespace MyApplicationDataLayer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.Request", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.Request", b =>
                 {
-                    b.HasOne("MyApplicationDataLayer.Entities.User", "User")
+                    b.HasOne("MyApplicationDomain.Entities.User", "User")
                         .WithMany("Requests")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -317,9 +321,9 @@ namespace MyApplicationDataLayer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.User", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.User", b =>
                 {
-                    b.HasOne("MyApplicationDataLayer.Entities.Role", "Role")
+                    b.HasOne("MyApplicationDomain.Entities.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -328,12 +332,12 @@ namespace MyApplicationDataLayer.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.Role", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.Role", b =>
                 {
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("MyApplicationDataLayer.Entities.User", b =>
+            modelBuilder.Entity("MyApplicationDomain.Entities.User", b =>
                 {
                     b.Navigation("RefreshTokens");
 

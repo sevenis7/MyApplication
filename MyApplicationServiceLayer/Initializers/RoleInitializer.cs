@@ -19,30 +19,11 @@ namespace MyApplicationServiceLayer.Initializers
 
         public async Task Initialize()
         {
-            await CreateRole("user");
-            await CreateRole("admin");
-
             await CreateUser("user", "userName", "userLastName", "user", "user@ex.com", "user");
             await CreateUser("IronMan", "Tony", "Stark", "ironMan", "ironman@ex.com", "user");
             await CreateUser("SpiderMan", "Peter", "Parker", "spiderMan", "spiderMan@ex.com", "user");
             await CreateUser("Venom", "Eddie", "Brock", "Venom", "anti-spiderMan@ex.com", "user");
             await CreateUser("admin", "adminName", "adminLastName", "admin", "admin@ex.com", "admin");
-        }
-        private async Task<Role?> CreateRole(string roleName)
-        {
-            if (!await _roleManager.RoleExistsAsync(roleName))
-            {
-                var role = new Role
-                {
-                    Name = roleName,
-                    ConcurrencyStamp = Guid.NewGuid().ToString(),
-                };
-
-                await _roleManager.CreateAsync(role);
-                return role;
-            }
-
-            return null;
         }
 
         private async Task<User?> CreateUser(
