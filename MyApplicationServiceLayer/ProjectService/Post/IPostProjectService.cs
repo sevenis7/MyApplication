@@ -1,4 +1,4 @@
-﻿using MyApplicationDataLayer.Entities;
+﻿using MyApplicationDomain.Entities;
 using MyApplicationServiceLayer.ProjectService.Models;
 
 namespace MyApplicationServiceLayer.ProjectService.Post

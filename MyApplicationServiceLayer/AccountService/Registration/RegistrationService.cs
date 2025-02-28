@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyApplicationDataLayer.DataContext;
-using MyApplicationDataLayer.Entities;
+using MyApplicationDomain.Entities;
 using MyApplicationServiceLayer.Authenticate.Registration.Models;
 
 namespace MyApplicationServiceLayer.Authenticate.Registration

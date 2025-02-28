@@ -1,31 +1,29 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyApplicationDataLayer.DataContext;
-using MyApplicationDataLayer.Entities;
+using MyApplicationDomain.Entities;
+using MyApplicationDataLayer.Repositories;
 
 namespace MyApplicationServiceLayer.RequestService.EditStatus
 {
     public class EditStatusService : IEditStatusService
     {
-        private readonly AppDbContext _context;
+        private readonly IRequestRepository _requestRepository;
 
-        public EditStatusService(AppDbContext context)
+        public EditStatusService(IRequestRepository requestRepository)
         {
-            _context = context;
+            _requestRepository = requestRepository;
         }
 
         public async Task<Request?> EditStatus(int id, RequestStatus status)
         {
-            var request = await _context.Requests.FirstOrDefaultAsync(x => x.Id == id);
+            var request = await _requestRepository.Get(id);
 
             if (request == null)
                 return null;
 
             request.Status = status;
 
-            _context.Requests.Update(request);
-
-            await _context.SaveChangesAsync();
-
+            await _requestRepository.Update(request);
             return request;
         }
     }

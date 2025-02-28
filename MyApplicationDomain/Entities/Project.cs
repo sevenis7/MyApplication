@@ -1,4 +1,4 @@
-﻿namespace MyApplicationDataLayer.Entities
+﻿namespace MyApplicationDomain.Entities
 {
     public class Project
     {

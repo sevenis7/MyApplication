@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using MyApplicationDataLayer.DataContext;
-using MyApplicationDataLayer.Entities;
+using MyApplicationDomain.Entities;
 
 namespace MyApplicationServiceLayer.Initializers
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyApplicationDataLayer.DataContext;
-using MyApplicationDataLayer.Entities;
+using MyApplicationDomain.Entities;
 
 namespace MyApplicationServiceLayer.Tokens.RefreshTokenService
 {

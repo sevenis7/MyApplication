@@ -17,4 +17,8 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.14" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MyApplicationDomain\MyApplicationDomain.csproj" />
+  </ItemGroup>
+
 </Project>

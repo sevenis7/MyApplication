@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MyApplicationDataLayer.Entities
+namespace MyApplicationDomain.Entities
 {
     public class Request
     {

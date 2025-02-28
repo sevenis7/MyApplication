@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyApplicationDataLayer.Entities;
+using MyApplicationDomain.Entities;
 using MyApplicationServiceLayer.ProjectService.Models;
 using MyApplicationServiceLayer.ProjectService.Post;
 

@@ -1,4 +1,4 @@
-﻿using MyApplicationDataLayer.Entities;
+﻿using MyApplicationDomain.Entities;
 using MyApplicationServiceLayer.RequestService.Models;
 
 namespace MyApplicationServiceLayer.RequestService.Extensions

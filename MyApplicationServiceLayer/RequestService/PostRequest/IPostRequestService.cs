@@ -1,4 +1,4 @@
-﻿using MyApplicationDataLayer.Entities;
+﻿using MyApplicationDomain.Entities;
 using MyApplicationServiceLayer.RequestService.PostRequest.Models;
 
 namespace MyApplicationServiceLayer.RequestService.PostRequest

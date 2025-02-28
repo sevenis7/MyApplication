@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MyApplicationDataLayer.Entities;
+using MyApplicationDomain.Entities;
 using MyApplicationServiceLayer.AccountService.Login.Models;
 
 namespace MyApplicationServiceLayer.AccountService.Login

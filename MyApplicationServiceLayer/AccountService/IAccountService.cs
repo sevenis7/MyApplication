@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using MyApplicationDataLayer.Entities;
+using MyApplicationDomain.Entities;
 using MyApplicationServiceLayer.AccountService.Login.Models;
 using MyApplicationServiceLayer.Authenticate;
 using MyApplicationServiceLayer.Authenticate.Registration.Models;

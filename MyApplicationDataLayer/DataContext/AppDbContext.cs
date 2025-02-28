@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MyApplicationDataLayer.Entities;
+using MyApplicationDomain.Entities;
 
 namespace MyApplicationDataLayer.DataContext
 {

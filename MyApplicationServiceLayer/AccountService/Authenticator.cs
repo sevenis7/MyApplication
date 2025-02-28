@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using MyApplicationDataLayer.Entities;
+using MyApplicationDomain.Entities;
 using MyApplicationServiceLayer.Tokens.RefreshTokenService;
 using MyApplicationServiceLayer.Tokens.TokenGenerators;
 

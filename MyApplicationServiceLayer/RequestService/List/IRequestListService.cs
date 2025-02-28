@@ -1,11 +1,11 @@
-﻿using MyApplicationDataLayer.Entities;
+﻿using MyApplicationDomain.Entities;
 
 namespace MyApplicationServiceLayer.RequestService.List
 {
     public interface IRequestListService
     {
-        Task<IQueryable<Request>?>? GetAll();
-        Task<IQueryable<Request>?> GetByStatus(RequestStatus status);
+        IQueryable<Request> GetAll();
+        IQueryable<Request> GetByStatus(RequestStatus status);
         Task<Request?> Get(int id);
     }
 }

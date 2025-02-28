@@ -1,16 +1,17 @@
 ﻿using MyApplicationDataLayer.DataContext;
-using MyApplicationDataLayer.Entities;
+using MyApplicationDomain.Entities;
+using MyApplicationDataLayer.Repositories;
 using MyApplicationServiceLayer.RequestService.PostRequest.Models;
 
 namespace MyApplicationServiceLayer.RequestService.PostRequest
 {
     public class PostRequestService : IPostRequestService
     {
-        private readonly AppDbContext _context;
+        private readonly IRequestRepository _requestRepository;
 
-        public PostRequestService(AppDbContext context)
+        public PostRequestService(IRequestRepository requestRepository)
         {
-            _context = context;
+            _requestRepository = requestRepository;
         }
 
         public async Task<Request?> Post(PostRequestModel model, int userId)
@@ -25,10 +26,7 @@ namespace MyApplicationServiceLayer.RequestService.PostRequest
                 UserId = userId
             };
 
-            _context.Requests.Add(newRequest);
-
-            await _context.SaveChangesAsync();
-
+            await _requestRepository.Add(newRequest);
             return newRequest;
         }
     }

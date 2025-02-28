@@ -1,4 +1,4 @@
-﻿using MyApplicationDataLayer.Entities;
+﻿using MyApplicationDomain.Entities;
 using MyApplicationServiceLayer.RequestService.EditStatus;
 using MyApplicationServiceLayer.RequestService.List;
 using MyApplicationServiceLayer.RequestService.PostRequest;
@@ -37,14 +37,14 @@ namespace MyApplicationServiceLayer.RequestService
             return await _requestListService.Get(id);
         }
 
-        public async Task<IQueryable<Request>?> GetAll()
+        public IQueryable<Request>? GetAll()
         {
-            return await _requestListService.GetAll();
+            return _requestListService.GetAll();
         }
 
-        public async Task<IQueryable<Request>?> GetByStatus(RequestStatus status)
+        public IQueryable<Request> GetByStatus(RequestStatus status)
         {
-            return await _requestListService.GetByStatus(status);
+            return _requestListService.GetByStatus(status);
         }
     }
 }

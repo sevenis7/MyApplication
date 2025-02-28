@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MyApplicationDataLayer.Entities;
+using MyApplicationDomain.Entities;
 using MyApplicationServiceLayer.RequestService;
 using MyApplicationServiceLayer.RequestService.Extensions;
 using MyApplicationServiceLayer.RequestService.Models;
@@ -37,7 +37,7 @@ namespace MyApplication.Controllers
         [ProducesResponseType(500)]
         public async Task<ActionResult<IEnumerable<RequestModel>?>> GetAll()
         {
-            var requestsQry = await _requestService.GetAll();
+            var requestsQry = _requestService.GetAll();
 
             var requests = await requestsQry.ToModel().ToListAsync();
 
@@ -137,7 +137,7 @@ namespace MyApplication.Controllers
         [ProducesResponseType(500)]
         public async Task<ActionResult<IEnumerable<RequestModel>?>> GetByStatus(RequestStatus status)
         {
-            var requestsQry = await _requestService.GetByStatus(status);
+            var requestsQry = _requestService.GetByStatus(status);
 
             var requests = await requestsQry.ToModel().ToListAsync();
 

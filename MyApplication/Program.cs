@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MyApplicationDataLayer.DataContext;
-using MyApplicationDataLayer.Entities;
+using MyApplicationDomain.Entities;
+using MyApplicationDataLayer.Repositories;
 using MyApplicationServiceLayer.AccountService;
 using MyApplicationServiceLayer.AccountService.Login;
 using MyApplicationServiceLayer.Authenticate;
@@ -79,6 +80,7 @@ namespace MyApplication
             }).AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 
+            builder.Services.AddTransient<IRequestRepository, RequestRepository>();
             builder.Services.AddTransient<IRequestService, RequestService>();
             builder.Services.AddTransient<IRequestListService, RequestListService>();
             builder.Services.AddTransient<IEditStatusService, EditStatusService>();

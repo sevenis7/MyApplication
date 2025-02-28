@@ -1,31 +1,32 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyApplicationDataLayer.DataContext;
-using MyApplicationDataLayer.Entities;
+using MyApplicationDomain.Entities;
+using MyApplicationDataLayer.Repositories;
 
 namespace MyApplicationServiceLayer.RequestService.List
 {
     public class RequestListService : IRequestListService
     {
-        private readonly AppDbContext _context;
+        private readonly IRequestRepository _requestRepository;
 
-        public RequestListService(AppDbContext context)
+        public RequestListService(IRequestRepository requestRepository)
         {
-            _context = context;
+            this._requestRepository = requestRepository;
         }
 
-        public async Task<IQueryable<Request>?>? GetAll()
+        public IQueryable<Request> GetAll()
         {
-            return _context.Requests;
+            return _requestRepository.GetAll();
         }
 
-        public async Task<IQueryable<Request>?> GetByStatus(RequestStatus status)
+        public  IQueryable<Request> GetByStatus(RequestStatus status)
         {
-            return _context.Requests.Where(r => r.Status == status);
+            return _requestRepository.GetByStatus(status);
         }
 
         public async Task<Request?> Get(int id)
         {
-            return await _context.Requests.Include(r => r.User).FirstOrDefaultAsync(r => r.Id == id);
+            return await _requestRepository.Get(id);
         }
     }
 }
