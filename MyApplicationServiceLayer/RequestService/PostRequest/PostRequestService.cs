@@ -27,7 +27,9 @@ namespace MyApplicationServiceLayer.RequestService.PostRequest
             };
 
             await _requestRepository.Add(newRequest);
-            return newRequest;
+            var result = await _requestRepository.Get(newRequest.Id);
+
+            return result;
         }
     }
 }

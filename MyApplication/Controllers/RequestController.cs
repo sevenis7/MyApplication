@@ -30,7 +30,7 @@ namespace MyApplication.Controllers
         /// <response code = "403">If not authorized</response>
         /// <response code = "500">Internal Server Error</response>
         [HttpGet]
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<RequestModel>))]
         [ProducesResponseType(401)]
         [ProducesResponseType(403)]
@@ -54,7 +54,7 @@ namespace MyApplication.Controllers
         /// <response code = "403">If not authorized</response>
         /// <response code = "500">Internal Server Error</response>
         [HttpGet("{id:int}")]
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(RequestModel))]
         [ProducesResponseType(401)]
         [ProducesResponseType(403)]
@@ -79,7 +79,7 @@ namespace MyApplication.Controllers
         /// <response code = "500">Internal Server Error</response>
         [HttpPost]
         [Authorize(Roles = "user")]
-        [ProducesResponseType(201, Type = typeof(Request))]
+        [ProducesResponseType(201, Type = typeof(RequestModel))]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [ProducesResponseType(500)]
@@ -91,8 +91,9 @@ namespace MyApplication.Controllers
                 throw new ArgumentException("Wrong id format");
 
             var result = await _requestService.Post(model, id);
-
-            return result == null ? BadRequest() : CreatedAtAction(nameof(Post), result);
+            var requestModel = result?.ToModel();
+           
+            return requestModel == null ? BadRequest() : CreatedAtAction(nameof(Post), requestModel);
         }
 
         /// <summary>
@@ -107,8 +108,8 @@ namespace MyApplication.Controllers
         /// <response code = "403">If not authorized</response>
         /// <response code = "500">Internal Server Error</response>
         [HttpPatch("{id}/{status}")]
-        //[Authorize(Roles = "admin")]
-        [ProducesResponseType(200, Type = typeof(Request))]
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(200, Type = typeof(RequestModel))]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
         [ProducesResponseType(403)]
@@ -117,7 +118,9 @@ namespace MyApplication.Controllers
         {
             var result = await _requestService.EditStatus(id, status);
 
-            return result == null ? NotFound() : Ok(result);
+            var requestModel = result?.ToModel();
+
+            return requestModel == null ? NotFound() : Ok(requestModel);
         }
 
         /// <summary>
@@ -130,7 +133,7 @@ namespace MyApplication.Controllers
         /// <response code = "403">If not authorized</response>
         /// <response code = "500">Internal Server Error</response>
         [HttpGet("{status}")]
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<RequestModel>))]
         [ProducesResponseType(401)]
         [ProducesResponseType(403)]
