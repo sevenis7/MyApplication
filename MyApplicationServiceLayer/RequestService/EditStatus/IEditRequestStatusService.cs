@@ -2,7 +2,7 @@
 
 namespace MyApplicationServiceLayer.RequestService.EditStatus
 {
-    public interface IEditStatusService
+    public interface IEditRequestStatusService
     {
         Task<Request?> EditStatus(int id, RequestStatus status);
     }

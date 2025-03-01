@@ -8,12 +8,12 @@ namespace MyApplicationServiceLayer.RequestService
 {
     public class RequestService : IRequestService
     {
-        private readonly IEditStatusService _editStatusService;
+        private readonly IEditRequestStatusService _editStatusService;
         private readonly IPostRequestService _postRequestService;
         private readonly IRequestListService _requestListService;
 
         public RequestService(
-            IEditStatusService editStatusService,
+            IEditRequestStatusService editStatusService,
             IPostRequestService postRequestService,
             IRequestListService requestListService)
         {

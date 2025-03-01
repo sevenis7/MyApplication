@@ -81,12 +81,12 @@ namespace MyApplication
             .AddDefaultTokenProviders();
 
             builder.Services.AddTransient<IRequestRepository, RequestRepository>();
-            builder.Services.AddTransient<IRequestService, RequestService>();
             builder.Services.AddTransient<IRequestListService, RequestListService>();
-            builder.Services.AddTransient<IEditStatusService, EditStatusService>();
+            builder.Services.AddTransient<IEditRequestStatusService, EditStatusService>();
+            builder.Services.AddTransient<IPostRequestService, PostRequestService>();
+            builder.Services.AddTransient<IRequestService, RequestService>();
 
             builder.Services.AddTransient<IProjectRepository, ProjectRepository>();
-            builder.Services.AddTransient<IPostRequestService, PostRequestService>();
             builder.Services.AddTransient<ILoginService, LoginService>();
             builder.Services.AddTransient<IRegistrationService, RegistrationService>();
             builder.Services.AddTransient<IAuthenticator, Authenticator>();

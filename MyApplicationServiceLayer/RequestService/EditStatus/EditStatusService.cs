@@ -3,7 +3,7 @@ using MyApplicationDomain.Repositories;
 
 namespace MyApplicationServiceLayer.RequestService.EditStatus
 {
-    public class EditStatusService : IEditStatusService
+    public class EditStatusService : IEditRequestStatusService
     {
         private readonly IRequestRepository _requestRepository;
 
