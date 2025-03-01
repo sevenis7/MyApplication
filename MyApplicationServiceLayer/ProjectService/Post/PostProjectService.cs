@@ -1,16 +1,16 @@
-﻿using MyApplicationDataLayer.DataContext;
-using MyApplicationDomain.Entities;
+﻿using MyApplicationDomain.Entities;
+using MyApplicationDomain.Repositories;
 using MyApplicationServiceLayer.ProjectService.Models;
 
 namespace MyApplicationServiceLayer.ProjectService.Post
 {
     public class PostProjectService : IPostProjectService
     {
-        private readonly AppDbContext _context;
+        private readonly IProjectRepository _projectRepository;
 
-        public PostProjectService(AppDbContext context)
+        public PostProjectService(IProjectRepository projectRepository)
         {
-            _context = context;
+            _projectRepository = projectRepository;
         }
 
         public async Task<Project?> Post(ProjectModel model)
@@ -24,10 +24,7 @@ namespace MyApplicationServiceLayer.ProjectService.Post
                 ImageUrl = model.ImageUrl
             };
 
-            _context.Projects.Add(project);
-
-            await _context.SaveChangesAsync();
-
+            await _projectRepository.Add(project);
             return project;
         }
     }

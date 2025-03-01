@@ -84,6 +84,8 @@ namespace MyApplication
             builder.Services.AddTransient<IRequestService, RequestService>();
             builder.Services.AddTransient<IRequestListService, RequestListService>();
             builder.Services.AddTransient<IEditStatusService, EditStatusService>();
+
+            builder.Services.AddTransient<IProjectRepository, ProjectRepository>();
             builder.Services.AddTransient<IPostRequestService, PostRequestService>();
             builder.Services.AddTransient<ILoginService, LoginService>();
             builder.Services.AddTransient<IRegistrationService, RegistrationService>();
