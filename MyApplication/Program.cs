@@ -29,7 +29,6 @@ namespace MyApplication
     {
         public static void Main(string[] args)
         {
-
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddCors();
             string connection = builder.Configuration.GetConnectionString("DefaultConnection")!;
