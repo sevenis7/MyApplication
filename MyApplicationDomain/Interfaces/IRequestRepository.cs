@@ -4,7 +4,7 @@ namespace MyApplicationDomain.Repositories
 {
     public interface IRequestRepository
     {
-        Task<Request?> Add(Request request);
+        Task Add(Request request);
         Task Delete(Request request);
         Task<Request?> Get(int id);
         IQueryable<Request> GetAll();

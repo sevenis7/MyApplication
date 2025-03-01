@@ -1,7 +1,6 @@
 ﻿using MyApplicationDomain.Entities;
 using MyApplicationServiceLayer.RequestService.EditStatus;
 using MyApplicationServiceLayer.RequestService.List;
-using MyApplicationServiceLayer.RequestService.Models;
 using MyApplicationServiceLayer.RequestService.PostRequest;
 using MyApplicationServiceLayer.RequestService.PostRequest.Models;
 
@@ -28,7 +27,7 @@ namespace MyApplicationServiceLayer.RequestService
             return await _editStatusService.EditStatus(id, status);
         }
 
-        public async Task<RequestModel?> Post(PostRequestModel model, int userId)
+        public async Task<Request?> Post(PostRequestModel model, int userId)
         {
             return await _postRequestService.Post(model, userId);
         }

@@ -1,26 +1,19 @@
 ﻿using MyApplicationDomain.Entities;
 using MyApplicationServiceLayer.RequestService.PostRequest.Models;
 using MyApplicationDomain.Repositories;
-using MyApplicationServiceLayer.RequestService.Extensions;
-using MyApplicationServiceLayer.RequestService.Models;
-using MyApplicationServiceLayer.RequestService.List;
 
 namespace MyApplicationServiceLayer.RequestService.PostRequest
 {
     public class PostRequestService : IPostRequestService
     {
         private readonly IRequestRepository _requestRepository;
-        private readonly IRequestListService _requestListService;
 
-        public PostRequestService
-            (IRequestRepository requestRepository, 
-            IRequestListService requestListService)
+        public PostRequestService(IRequestRepository requestRepository)
         {
             _requestRepository = requestRepository;
-            _requestListService = requestListService;
         }
 
-        public async Task<RequestModel?> Post(PostRequestModel model, int userId)
+        public async Task<Request?> Post(PostRequestModel model, int userId)
         {
             if (String.IsNullOrWhiteSpace(model.Text)) return null;
 
@@ -31,10 +24,11 @@ namespace MyApplicationServiceLayer.RequestService.PostRequest
                 Date = DateTime.UtcNow,
                 UserId = userId
             };
-            
-            var addedRequest = await _requestRepository.Add(newRequest);
 
-            return addedRequest?.ToModel();
+            await _requestRepository.Add(newRequest);
+            var result = await _requestRepository.Get(newRequest.Id);
+
+            return result;
         }
     }
 }
