@@ -38,10 +38,18 @@ namespace MyApplicationDataLayer.Repositories
                 .Where(r => r.Status == status);
         }
 
-        public async Task Add(Request request)
+        public async Task<Request?> Add(Request request)
         {
             _context.Requests.Add(request);
+
             await _context.SaveChangesAsync();
+
+            var addedRequest = await _context
+                .Requests
+                .Include(r => r.User)
+                .FirstOrDefaultAsync(r => r.Id == request.Id);
+
+            return addedRequest;
         }
 
         public async Task Update(Request request)

@@ -1,10 +1,10 @@
-﻿using MyApplicationDomain.Entities;
+﻿using MyApplicationServiceLayer.RequestService.Models;
 using MyApplicationServiceLayer.RequestService.PostRequest.Models;
 
 namespace MyApplicationServiceLayer.RequestService.PostRequest
 {
     public interface IPostRequestService
     {
-        Task<Request?> Post(PostRequestModel model, int userId);
+        Task<RequestModel?> Post(PostRequestModel model, int userId);
     }
 }
