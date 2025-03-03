@@ -24,9 +24,9 @@ namespace MyApplicationServiceLayer.ProjectService.Post
 
             var project = new Project
             {
-                Description = model.Title,
-                Title = model.Description,
-                ImageUrl = model.ImageUrl ?? _defaultImageUrl
+                Title = model.Title,
+                Description = model.Description,
+                ImageUrl = string.IsNullOrWhiteSpace(model.ImageUrl) ? _defaultImageUrl : model.ImageUrl
             };
 
             await _projectRepository.Add(project);

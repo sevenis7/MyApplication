@@ -83,7 +83,7 @@ namespace MyApplication.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<Request>> Post([FromBody] PostRequestModel model)
+        public async Task<ActionResult<RequestModel>> Post([FromBody] PostRequestModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
