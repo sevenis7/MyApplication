@@ -30,12 +30,12 @@ namespace MyApplication.Controllers
         /// <response code = "403">If not authorized</response>
         /// <response code = "500">Internal Server Error</response>
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<RequestModel>))]
         [ProducesResponseType(401)]
         [ProducesResponseType(403)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<IEnumerable<RequestModel>?>> GetAll()
+        public async Task<ActionResult<IEnumerable<RequestModel>>> GetAll()
         {
             var requestsQry = _requestService.GetAll();
 
@@ -50,22 +50,26 @@ namespace MyApplication.Controllers
         /// <param name="id"></param>
         /// <returns>RequestModel</returns>
         /// <response code = "200">Returns the RequestModels</response>
+        /// <response code = "400">If request with selected id is not exists</response>
         /// <response code = "401">If not authorized</response>
         /// <response code = "403">If not authorized</response>
         /// <response code = "500">Internal Server Error</response>
         [HttpGet("{id:int}")]
         [Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(RequestModel))]
+        [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [ProducesResponseType(403)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<RequestModel?>> Get(int id)
+        public async Task<ActionResult<RequestModel>> Get(int id)
         {
             var request =  await _requestService.Get(id);
 
             var requestModel = request?.ToModel();
 
-            return requestModel == null ? BadRequest() : Ok(requestModel);
+            return requestModel == null 
+                ? BadRequest() 
+                : Ok(requestModel);
         }
 
         /// <summary>
@@ -120,7 +124,9 @@ namespace MyApplication.Controllers
 
             var requestModel = result?.ToModel();
 
-            return requestModel == null ? NotFound() : Ok(requestModel);
+            return requestModel == null 
+                ? NotFound() 
+                : Ok(requestModel);
         }
 
         /// <summary>

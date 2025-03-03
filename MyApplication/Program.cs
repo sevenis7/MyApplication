@@ -22,6 +22,10 @@ using MyApplicationServiceLayer.Tokens.TokenGenerators;
 using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
+using MyApplicationServiceLayer.ProjectService;
+using MyApplicationServiceLayer.ProjectService.Edit;
+using MyApplicationServiceLayer.ProjectService.List;
+using MyApplicationServiceLayer.ProjectService.Remove;
 
 namespace MyApplication
 {
@@ -87,6 +91,12 @@ namespace MyApplication
             builder.Services.AddTransient<IRequestService, RequestService>();
 
             builder.Services.AddTransient<IProjectRepository, ProjectRepository>();
+            builder.Services.AddTransient<IProjectService, ProjectService>();
+            builder.Services.AddTransient<IEditProjectService, EditProjectService>();
+            builder.Services.AddTransient<IListProjectService, ListProjectService>();
+            builder.Services.AddTransient<IPostProjectService, PostProjectService>();
+            builder.Services.AddTransient<IRemoveProjectService, RemoveProjectService>();
+
             builder.Services.AddTransient<ILoginService, LoginService>();
             builder.Services.AddTransient<IRegistrationService, RegistrationService>();
             builder.Services.AddTransient<IAuthenticator, Authenticator>();

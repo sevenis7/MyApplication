@@ -5,7 +5,7 @@ namespace MyApplicationServiceLayer.ProjectService
 {
     public interface IProjectService
     {
-        Task<Project?> Edit(int id, Project project);
+        Task<Project?> Edit(int id, ProjectModel project);
         Task<Project?> Get(int id);
         IQueryable<Project> GetAll();
         Task<Project?> Post(ProjectModel projectModel);

@@ -36,9 +36,9 @@ namespace MyApplicationServiceLayer.ProjectService
             return _listProjectService.GetAll();
         }
 
-        public async Task<Project?> Edit(int id, Project project)
+        public async Task<Project?> Edit(int id, ProjectModel model)
         {
-            return await _editProjectService.Edit(id, project);
+            return await _editProjectService.Edit(id, model);
         }
 
         public async Task<Project?> Post(ProjectModel projectModel)

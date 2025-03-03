@@ -8,6 +8,7 @@ namespace MyApplicationServiceLayer.ProjectService.Validation
 
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
+            if (string.IsNullOrWhiteSpace(value as string)) return ValidationResult.Success;
             if (value is string imageUrl)
             {
                 var extension = Path.GetExtension(imageUrl).ToLower();
